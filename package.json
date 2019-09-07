@@ -6,6 +6,7 @@
   "author": "Aaron Waterman Rose <arwaterman@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "concurrently": "^4.1.2",
     "express": "^4.17.1"
   },
   "scripts": {
