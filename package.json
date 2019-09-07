@@ -4,5 +4,8 @@
   "description": "Look up your representative and do a bit of research while your at it.",
   "main": "server.js",
   "author": "Aaron Waterman Rose <arwaterman@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
