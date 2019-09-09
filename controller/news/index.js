@@ -4,7 +4,7 @@ const keys = require('../../config/keys');
 exports.getNews = async (req, res) => {
     try {
         const pageNum = req.params.pageNum || 1;
-        const query = req.params.query || '';
+        const query = req.body.query || '';
 
         if (query === '') {
             res.json({ message: 'query was not provided', body: null });
