@@ -15,7 +15,7 @@ class Main extends Component {
         // users address
         address: '',
         // google civic information data
-        civicData: { divisions: [] }
+        civicData: { }
     }
 
     handleInput = event => {
@@ -27,16 +27,25 @@ class Main extends Component {
         if (event.key === 'Enter') {
             const address = this.state.address;
             const data = await getCivicInfo(address);
-            this.setState({ civicData: data.body });
+            this.setState({ civicData: data });
         }
     }
 
     render() { 
+        console.log('main-state-address:', this.state.address);
+        console.log(this.state.civicData);
         return (
             <section className='Main '>
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path='/' component={CivicInfo} />
+                        <Route exact path='/'
+                            render={(props) =>
+                                <CivicInfo
+                                address={this.state.address}
+                                handleInput={this.handleInput}
+                                handleKeyPress={this.handleKeyPress}
+                                {...props} />
+                            } />
                         <Route path='/news' component={News} />
                     </Switch>
                 </BrowserRouter>
