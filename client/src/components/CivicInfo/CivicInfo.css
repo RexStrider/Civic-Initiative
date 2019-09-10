@@ -1,0 +1,10 @@
+.civic-info {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 100px;
+}
+
+.civic-info label {
+    margin-right: 5px;
+}
