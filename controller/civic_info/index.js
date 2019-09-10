@@ -1,9 +1,8 @@
-require('dotenv').config();
-
 const axios = require('axios');
 const keys = require('../../config/keys');
 
 exports.getCivicInfo = async (req, res) => {
+    console.log(keys);
     try {
         const address = req.params.address || ''
 
