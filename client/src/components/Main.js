@@ -1,24 +1,46 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import { Container } from 'react-bootstrap';
+import CivicInfo from './CivicInfo'
 
-const CivicInfo = () => { return (<h1>'Civic Information component placeholder'</h1>)}
+import { getCivicInfo } from '../utilities/api/civicInfo';
+
+// const CivicInfo = () => { return (<h1>'Civic Information component placeholder'</h1>)}
 const News = () => { return (<h1>'News component placeholder'</h1>)}
 
 // top-most level of our application
 class Main extends Component {
-    state = {  }
+
+    state = {
+        // users address
+        address: '',
+        // google civic information data
+        civicData: { divisions: [] }
+    }
+
+    handleInput = event => {
+        const {name, value} = event.target;
+        this.setState({ [name]: value });
+    }
+
+    handleKeyPress = async event => {
+        if (event.key === 'Enter') {
+            const address = this.state.address;
+            const data = await getCivicInfo(address);
+            this.setState({ civicData: data.body });
+        }
+    }
+
     render() { 
         return (
-            <Container className='Main '>
+            <section className='Main '>
                 <BrowserRouter>
                     <Switch>
                         <Route exact path='/' component={CivicInfo} />
                         <Route path='/news' component={News} />
                     </Switch>
                 </BrowserRouter>
-            </Container>
+            </section>
         );
     }
 }
