@@ -3,6 +3,8 @@ const keys = require('../../config/keys');
 
 exports.getNews = async (req, res) => {
     try {
+        require('dotenv').config();
+        
         const pageNum = req.params.pageNum || 1;
         const query = req.body.query || '';
 
