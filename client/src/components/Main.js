@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import CivicInfo from './CivicInfo'
+import News from './News';
 
 import { getCivicInfo } from '../utilities/api/civicInfo';
-
-// const CivicInfo = () => { return (<h1>'Civic Information component placeholder'</h1>)}
-const News = () => { return (<h1>'News component placeholder'</h1>)}
+import { getArticles } from '../utilities/api/news';
 
 // top-most level of our application
 class Main extends Component {
