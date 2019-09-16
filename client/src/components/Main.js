@@ -22,17 +22,105 @@ class Main extends Component {
         this.setState({ [name]: value });
     }
 
-    handleKeyPress = async event => {
-        if (event.key === 'Enter') {
+    handleCivicApiCall = async event => {
+        const address = this.state.address;
+        const key = event.key;
+        const type = event.type;
+        if (address && (key === 'Enter' || type === 'click')) {
             const address = this.state.address;
-            const data = await getCivicInfo(address);
-            this.setState({ civicData: data });
+            const response = await getCivicInfo(address);
+            const civicData = response.body;
+            this.setState({ civicData });
+
+            this.parseCivicData();
         }
     }
 
-    render() { 
-        console.log('main-state-address:', this.state.address);
-        console.log(this.state.civicData);
+    parseCivicData = () => {
+        const civicData = this.state.civicData;
+        const result = [];
+
+        console.log(civicData);
+
+        try {
+        // if (civicData) {
+            const divisions = Object.entries(civicData.divisions);
+            
+            console.log(divisions);
+            console.log(divisions[0]);
+            console.log(divisions[0][1]);
+
+            for(let i=0; i < divisions.length; i++) {
+                const gov = divisions[i][1];
+                const officeIndices = gov.officeIndices;
+                for (let j=0; j < officeIndices.length; j++) {
+                    const index = officeIndices[j];
+                    const office = civicData.offices[index];
+                    const officialIndices = office.officialIndices;
+                    for (let k=0; k < officialIndices.length; k++) {
+                        const index = officialIndices[k];
+                        const official = civicData.officials[index];
+
+                        const representative = {
+                            name: official.name,
+                            title: office.name,
+                            government: gov.name,
+                            addresses: [],
+                            phones: official.phones,
+                            facebookId: '',
+                            twitterId: '',
+                            otherId: '',
+                            photoUrl: official.photoUrl,
+                            urls: official.urls
+                        }
+
+                        const officialAddresses = official.address;
+                        const officialChannels = official.channels;
+
+                        if (officialAddresses) {
+                            for (let l=0; l < officialAddresses.length; l++) {
+                                const address = officialAddresses[l];
+                                representative.addresses.push([
+                                    address.line1 + ' ' + address.line2 + ' ' + address.line3,
+                                    address.city + ' ' + address.state + ' ' + address.zip
+                                ]);
+                            }
+                        }
+
+                        if (officialChannels) {
+                            for (let l=0; l < officialChannels.length; l++) {
+                                const channel = officialChannels[l];
+
+                                if ('facebook' === channel.type.toLowerCase()) {
+                                    representative.facebookId=channel.id;
+                                }
+                                else if ('twitter' === channel.type.toLowerCase()) {
+                                    representative.twitterId=channel.id;
+                                }
+                                else {
+                                    representative.otherId=channel.id;
+                                }
+                            }
+                        }
+
+                        result.unshift(representative);
+                    }
+                }
+            }
+        // }
+        // else {
+        //     console.log('uh oh... civic data is missing?');
+        // }
+        } catch (error) {
+            console.log(error);
+        }
+
+        console.log(result);
+
+        return result
+    }
+
+    render() {
         return (
             <section className='Main '>
                 <BrowserRouter>
@@ -42,7 +130,7 @@ class Main extends Component {
                                 <CivicInfo
                                 address={this.state.address}
                                 handleInput={this.handleInput}
-                                handleKeyPress={this.handleKeyPress}
+                                handleCivicApiCall={this.handleCivicApiCall}
                                 {...props} />
                             } />
                         <Route path='/news' component={News} />
