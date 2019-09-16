@@ -31,25 +31,14 @@ class Main extends Component {
             const response = await getCivicInfo(address);
             const civicData = response.body;
             this.setState({ civicData });
-
-            this.parseCivicData();
         }
     }
 
     parseCivicData = () => {
         const civicData = this.state.civicData;
         const result = [];
-
-        console.log(civicData);
-
         try {
-        // if (civicData) {
             const divisions = Object.entries(civicData.divisions);
-            
-            console.log(divisions);
-            console.log(divisions[0]);
-            console.log(divisions[0][1]);
-
             for(let i=0; i < divisions.length; i++) {
                 const gov = divisions[i][1];
                 const officeIndices = gov.officeIndices;
@@ -60,7 +49,6 @@ class Main extends Component {
                     for (let k=0; k < officialIndices.length; k++) {
                         const index = officialIndices[k];
                         const official = civicData.officials[index];
-
                         const representative = {
                             name: official.name,
                             title: office.name,
@@ -73,10 +61,8 @@ class Main extends Component {
                             photoUrl: official.photoUrl,
                             urls: official.urls
                         }
-
                         const officialAddresses = official.address;
                         const officialChannels = official.channels;
-
                         if (officialAddresses) {
                             for (let l=0; l < officialAddresses.length; l++) {
                                 const address = officialAddresses[l];
@@ -86,7 +72,6 @@ class Main extends Component {
                                 ]);
                             }
                         }
-
                         if (officialChannels) {
                             for (let l=0; l < officialChannels.length; l++) {
                                 const channel = officialChannels[l];
@@ -107,16 +92,9 @@ class Main extends Component {
                     }
                 }
             }
-        // }
-        // else {
-        //     console.log('uh oh... civic data is missing?');
-        // }
         } catch (error) {
             console.log(error);
         }
-
-        console.log(result);
-
         return result
     }
 
