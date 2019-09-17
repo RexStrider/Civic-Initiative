@@ -29,16 +29,17 @@ class Main extends Component {
         if (address && (key === 'Enter' || type === 'click')) {
             const address = this.state.address;
             const response = await getCivicInfo(address);
-            const civicData = response.body;
+            const civicData = this.parseCivicData(response.body);
             this.setState({ civicData });
         }
     }
 
-    parseCivicData = () => {
-        const civicData = this.state.civicData;
+    parseCivicData = (civicData) => {
         const result = [];
+
         try {
             const divisions = Object.entries(civicData.divisions);
+
             for(let i=0; i < divisions.length; i++) {
                 const gov = divisions[i][1];
                 const officeIndices = gov.officeIndices;
@@ -95,10 +96,12 @@ class Main extends Component {
         } catch (error) {
             console.log(error);
         }
+
         return result
     }
 
     render() {
+        console.log(this.state.civicData);
         return (
             <section className='Main '>
                 <BrowserRouter>
