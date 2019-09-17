@@ -3,9 +3,7 @@ import './CivicInfo.css';
 import React, { Component } from 'react';
 
 class CivicInfo extends Component {
-    // state = {  }
     render() {
-        console.log('props-address:', this.props.address);
         return (
             <section className='civic-info'>
                 <label>Search for a representative </label>
