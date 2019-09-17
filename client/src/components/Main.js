@@ -1,3 +1,5 @@
+import './Main.css';
+
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -5,7 +7,7 @@ import CivicInfo from './CivicInfo'
 import News from './News';
 
 import { getCivicInfo } from '../utilities/api/civicInfo';
-import { getArticles } from '../utilities/api/news';
+// import { getArticles } from '../utilities/api/news';
 
 // top-most level of our application
 class Main extends Component {
@@ -39,7 +41,7 @@ class Main extends Component {
 
         try {
             const divisions = Object.entries(civicData.divisions);
-
+            
             for(let i=0; i < divisions.length; i++) {
                 const gov = divisions[i][1];
                 const officeIndices = gov.officeIndices;
@@ -58,6 +60,7 @@ class Main extends Component {
                             phones: official.phones,
                             facebookId: '',
                             twitterId: '',
+                            youtubeId: '',
                             otherId: '',
                             photoUrl: official.photoUrl,
                             urls: official.urls
@@ -83,6 +86,9 @@ class Main extends Component {
                                 else if ('twitter' === channel.type.toLowerCase()) {
                                     representative.twitterId=channel.id;
                                 }
+                                else if ('youtube' === channel.type.toLowerCase()) {
+                                    representative.youtubeId=channel.id;
+                                }
                                 else {
                                     representative.otherId=channel.id;
                                 }
@@ -101,7 +107,6 @@ class Main extends Component {
     }
 
     render() {
-        console.log(this.state.civicData);
         return (
             <section className='Main '>
                 <BrowserRouter>
@@ -112,6 +117,7 @@ class Main extends Component {
                                 address={this.state.address}
                                 handleInput={this.handleInput}
                                 handleCivicApiCall={this.handleCivicApiCall}
+                                civicData={this.state.civicData}
                                 {...props} />
                             } />
                         <Route path='/news' component={News} />
