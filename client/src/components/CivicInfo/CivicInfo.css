@@ -1,0 +1,12 @@
+.civic-card-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+@media (max-width: 1060px) {
+    .civic-card-row {
+        flex-direction: column;
+        align-items: center;
+    }
+}

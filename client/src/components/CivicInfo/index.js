@@ -4,23 +4,7 @@ import React, { Component } from 'react';
 import SearchBar from '../SearchBar';
 import CivicCard from '../CivicCard';
 
-import pumpkinhead_photo from '../../assets/images/pumpkinhead.jpg';
-
 class CivicInfo extends Component {
-
-    representative = {
-        name: "pumpkin head",
-        title: "president?",
-        government: "United States",
-        addresses: [["123 white house", "Washington DC"]],
-        phones: ["111-222-3333"],
-        facebookId: "pumpkinhead",
-        twitterId: null,
-        otherId: "",
-        photoUrl: pumpkinhead_photo,
-        urls: ["https://www.whitehouse.gov"]
-    }
-
     render() {
         return (
             <section className='civic-info'>
@@ -39,10 +23,30 @@ class CivicInfo extends Component {
 
     renderCivicData = civicData => {
         const result = [];
-
+        // const cards = [];
         for (let i=0; i < civicData.length; i++) {
-            result.push(this.renderCivicCard(civicData[i]));
+            // cards.push( this.renderCivicCard(civicData[i]) );
+            if (i % 2 === 1) result.push(
+                this.renderCardRow(
+                    this.renderCivicCard(civicData[i-1]),
+                    this.renderCivicCard(civicData[i]),
+                    `key_${i}`
+                )
+            );
         }
+
+        if ((civicData.length-1) % 2 === 0) result.push(
+            this.renderCardRow(
+                this.renderCivicCard(civicData[civicData.length-1]),
+                null,
+                `key_${civicData.length-1}`
+            )
+        );
+
+        // for (let i=0; i < cards.length; i++) {
+        //     if (i % 2 === 1) result.push( this.renderCardRow(cards[i-1], cards[i], `key_${i}`) );
+        // }
+        // if ((results.length-1) % 2 === 0) result.push( this.renderCardRow(cards[cards.length-1], null, `key_${cards.length-1}`) );
 
         return result;
     }
@@ -50,6 +54,15 @@ class CivicInfo extends Component {
     renderCivicCard = representative => {
         return (
             <CivicCard representative={ representative } key={ representative.name } />
+        );
+    }
+
+    renderCardRow = (cardA, cardB, key) => {
+        return (
+            <section className='civic-card-row' key={key}>
+                {cardA}
+                {cardB}
+            </section>
         );
     }
 }
