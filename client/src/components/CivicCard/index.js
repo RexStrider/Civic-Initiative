@@ -42,14 +42,6 @@ class CivicCard extends Component {
             );
         }
 
-        // if (representative.otherId) {
-        //     links.push(
-        //         <a href={representative.otherId} >
-        //             { representative.otherId }
-        //         </a>
-        //     );
-        // }
-
         if (representative.facebookId) {
             links.push(
                 <a href={(`https://www.facebook.com/${ representative.facebookId }`)}
