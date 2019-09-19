@@ -1,11 +1,10 @@
 export const getArticles = async (query, pageNum) => {
     const url = `/api/news/${pageNum}`
-    
-    const response = fetch(url, {
-            method: "POST",
-            body:{ query },
-            headers:{ 'Content-Type': 'application/json' }
-        });
-    const data = response.json();
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify( { query, pageSize: 50 } )
+    });
+    const data = await response.json();
     return data;
 }
