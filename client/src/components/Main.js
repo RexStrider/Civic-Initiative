@@ -7,7 +7,7 @@ import CivicInfo from './CivicInfo'
 import News from './News';
 
 import { getCivicInfo } from '../utilities/api/civicInfo';
-// import { getArticles } from '../utilities/api/news';
+import { getArticles } from '../utilities/api/news';
 
 // top-most level of our application
 class Main extends Component {
@@ -16,12 +16,54 @@ class Main extends Component {
         // users address
         address: '',
         // google civic information data
-        civicData: { }
+        civicData: { },
+        // news api query
+        query: '',
+        // news api page of results
+        pageNum: 1,
+        // news api articles returned
+        articles: []
+    }
+
+    render() {
+        // console.log(this.state);
+        return (
+            <section className='Main '>
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path='/'
+                            render={(props) =>
+                                <CivicInfo
+                                address={this.state.address}
+                                handleInput={this.handleInput}
+                                handleCivicApiCall={this.handleCivicApiCall}
+                                handleNewsApiCall={this.handleNewsApiCall}
+                                civicData={this.state.civicData}
+                                {...props} />
+                            } />
+                        <Route path='/news'
+                            render={props =>
+                                <News
+                                articles={this.state.articles}
+                                query={this.state.query}
+                                pageNum={this.state.pageNum}
+                                {...props} />
+                            } />
+                    </Switch>
+                </BrowserRouter>
+            </section>
+        );
     }
 
     handleInput = event => {
         const {name, value} = event.target;
         this.setState({ [name]: value });
+    }
+
+    handleNewsApiCall = async (query, pageNum) => {
+        const response = await getArticles(query, pageNum);
+        const articles = response.body;
+        this.setState({ articles, query, pageNum })
     }
 
     handleCivicApiCall = async event => {
@@ -94,7 +136,6 @@ class Main extends Component {
                                 }
                             }
                         }
-
                         result.unshift(representative);
                     }
                 }
@@ -102,29 +143,7 @@ class Main extends Component {
         } catch (error) {
             console.log(error);
         }
-
         return result
-    }
-
-    render() {
-        return (
-            <section className='Main '>
-                <BrowserRouter>
-                    <Switch>
-                        <Route exact path='/'
-                            render={(props) =>
-                                <CivicInfo
-                                address={this.state.address}
-                                handleInput={this.handleInput}
-                                handleCivicApiCall={this.handleCivicApiCall}
-                                civicData={this.state.civicData}
-                                {...props} />
-                            } />
-                        <Route path='/news' component={News} />
-                    </Switch>
-                </BrowserRouter>
-            </section>
-        );
     }
 }
  
