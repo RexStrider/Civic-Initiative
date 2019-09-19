@@ -26,6 +26,16 @@ class CivicCard extends Component {
                     <section className='card-links'>
                         { this.renderCardLinks(links) }
                     </section>
+
+                    <section className='news'>
+                        <button onClick={() => {
+                            const representative = this.props.representative;
+                            const query = `"${representative.name}"`;
+                            this.props.handleNewsApiCall(query, 1);
+                        }}>
+                            Learn more about your representative
+                        </button>
+                    </section>
                 </section>
             </section>
         );
