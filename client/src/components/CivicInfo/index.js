@@ -23,9 +23,8 @@ class CivicInfo extends Component {
 
     renderCivicData = civicData => {
         const result = [];
-        // const cards = [];
+
         for (let i=0; i < civicData.length; i++) {
-            // cards.push( this.renderCivicCard(civicData[i]) );
             if (i % 2 === 1) result.push(
                 this.renderCardRow(
                     this.renderCivicCard(civicData[i-1]),
@@ -34,7 +33,6 @@ class CivicInfo extends Component {
                 )
             );
         }
-
         if ((civicData.length-1) % 2 === 0) result.push(
             this.renderCardRow(
                 this.renderCivicCard(civicData[civicData.length-1]),
@@ -43,17 +41,15 @@ class CivicInfo extends Component {
             )
         );
 
-        // for (let i=0; i < cards.length; i++) {
-        //     if (i % 2 === 1) result.push( this.renderCardRow(cards[i-1], cards[i], `key_${i}`) );
-        // }
-        // if ((results.length-1) % 2 === 0) result.push( this.renderCardRow(cards[cards.length-1], null, `key_${cards.length-1}`) );
-
         return result;
     }
 
     renderCivicCard = representative => {
         return (
-            <CivicCard representative={ representative } key={ representative.name } />
+            <CivicCard
+            representative={ representative }
+            key={ representative.name }
+            handleNewsApiCall={this.props.handleNewsApiCall} />
         );
     }
 
