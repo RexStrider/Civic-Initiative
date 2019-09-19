@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 class News extends Component {
     // state = {  }
-    render() { 
+    render() {
+        console.log(this.props);
         return (
             <section className='News'>
                 One day there shall be news...
