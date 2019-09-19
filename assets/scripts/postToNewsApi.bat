@@ -1,0 +1,1 @@
+curl --data-urlencode "query=Kamala Harris" http://localhost:8010/api/news/1
