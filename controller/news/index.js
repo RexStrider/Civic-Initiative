@@ -1,12 +1,13 @@
+require('dotenv').config();
+
 const axios = require('axios');
 const keys = require('../../config/keys');
 
 exports.getNews = async (req, res) => {
     try {
-        require('dotenv').config();
-        
         const pageNum = req.params.pageNum || 1;
         const query = req.body.query || '';
+        const pageSize = req.body.pageSize || 20;
 
         if (query === '') {
             res.json({ message: 'query was not provided', body: null });
@@ -15,6 +16,7 @@ exports.getNews = async (req, res) => {
         const URL = `https://newsapi.org/v2/everything?` +
                     `q=(${query})&` +
                     `page=${pageNum}&` +
+                    `pageSize=${pageSize}&` +
                     `apiKey=${keys.news_api_key}`;
         const response = await axios.get(URL);
 
