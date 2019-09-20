@@ -62,7 +62,7 @@ class Main extends Component {
 
     handleNewsApiCall = async (query, pageNum) => {
         const response = await getArticles(query, pageNum);
-        const articles = response.body;
+        const articles = response.body.articles;
         this.setState({ articles, query, pageNum })
     }
 

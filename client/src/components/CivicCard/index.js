@@ -1,6 +1,7 @@
 import './CivicCard.css';
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class CivicCard extends Component {
     render() {
@@ -26,16 +27,6 @@ class CivicCard extends Component {
                     <section className='card-links'>
                         { this.renderCardLinks(links) }
                     </section>
-
-                    <section className='news'>
-                        <button onClick={() => {
-                            const representative = this.props.representative;
-                            const query = `"${representative.name}"`;
-                            this.props.handleNewsApiCall(query, 1);
-                        }}>
-                            Learn more about your representative
-                        </button>
-                    </section>
                 </section>
             </section>
         );
@@ -43,6 +34,15 @@ class CivicCard extends Component {
 
     getLinks = representative => {
         const links = [];
+
+        links.push(
+            <Link to='/news' onClick={() => {
+                const query = `"${representative.name}"`;
+                this.props.handleNewsApiCall(query, 1);
+            }}>
+                News
+            </Link>
+        );
 
         if (representative.urls) {
             links.push(
