@@ -82,6 +82,29 @@ class CivicCard extends Component {
             );
         }
 
+        if (representative.government.toLowerCase() === 'oakland city') {
+
+            // const regex = /\s[A-Za-z.]\s/;
+
+            const government = representative.government.trim().slice(0, representative.government.indexOf(' '));
+            let name = representative.name.trim();
+
+            if (name.match(/\s[A-Za-z.]+\s/)) {
+                name = name.replace(/\s[A-Za-z.]+\s/, '_');
+            }
+            else if (name.match(/[A-Za-z\s]+/)) {
+                name = name.replace(' ', '_');
+            }
+
+            console.log(name);
+
+            links.push(
+                <a href={`https://localwiki.org/${government}/${name}`}>
+                    LocalWiki
+                </a>
+            );
+        }
+
         return links;
     }
 
