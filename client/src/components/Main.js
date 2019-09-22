@@ -22,11 +22,22 @@ class Main extends Component {
         // news api page of results
         pageNum: 1,
         // news api articles returned
-        articles: []
+        articles: null
+    }
+
+    // This function causes a react/no-direct-mutation-state warning
+    // However it is only being called in the constructor of the News component
+    // This function was created as part of a solution that allowed the articles query
+    // to persist when refreshing the page, without showing the previous articles query
+    // when the user starts a new query.
+    // 
+    // I am open to alternate solutions, but this solution does cause the intended behavior
+    // of this application (persisted query on refresh, and previous query is not shown when making a new query). 
+    setStateArticles = state => {
+        this.state.articles=state;
     }
 
     render() {
-        // console.log(this.state);
         return (
             <section className='Main '>
                 <BrowserRouter>
@@ -37,7 +48,7 @@ class Main extends Component {
                                 address={this.state.address}
                                 handleInput={this.handleInput}
                                 handleCivicApiCall={this.handleCivicApiCall}
-                                handleNewsApiCall={this.handleNewsApiCall}
+                                setStateArticles={this.setStateArticles}
                                 civicData={this.state.civicData}
                                 {...props} />
                             } />
@@ -47,6 +58,7 @@ class Main extends Component {
                                 articles={this.state.articles}
                                 query={this.state.query}
                                 pageNum={this.state.pageNum}
+                                handleNewsApiCall={this.handleNewsApiCall}
                                 {...props} />
                             } />
                     </Switch>

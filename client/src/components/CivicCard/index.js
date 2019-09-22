@@ -38,7 +38,7 @@ class CivicCard extends Component {
         links.push(
             <Link to='/news' onClick={() => {
                 const query = `"${representative.name}"`;
-                this.props.handleNewsApiCall(query, 1);
+                window.sessionStorage.query=query;
             }}>
                 News
             </Link>
@@ -84,8 +84,6 @@ class CivicCard extends Component {
 
         if (representative.government.toLowerCase() === 'oakland city') {
 
-            // const regex = /\s[A-Za-z.]\s/;
-
             const government = representative.government.trim().slice(0, representative.government.indexOf(' '));
             let name = representative.name.trim();
 
@@ -95,8 +93,6 @@ class CivicCard extends Component {
             else if (name.match(/[A-Za-z\s]+/)) {
                 name = name.replace(' ', '_');
             }
-
-            console.log(name);
 
             links.push(
                 <a href={`https://localwiki.org/${government}/${name}`}>
@@ -112,9 +108,13 @@ class CivicCard extends Component {
         const result = [];
         if (links)
         for (let i=0; i < links.length; i++) {
-            if (i % 2 === 1) result.push(this.renderLinkRow(links[i-1], links[i], `key_${i}`));
+            if (i % 2 === 1) result.push(
+                this.renderLinkRow(links[i-1], links[i], `key_${i}`)
+            );
         }
-        if ((links.length-1) % 2 === 0) result.push(this.renderLinkRow(links[links.length-1], null, `key_${links.length-1}`));
+        if ((links.length-1) % 2 === 0) result.push(
+            this.renderLinkRow(links[links.length-1], null, `key_${links.length-1}`)
+        );
         return result;
     }
 

@@ -5,6 +5,13 @@ import SearchBar from '../SearchBar';
 import CivicCard from '../CivicCard';
 
 class CivicInfo extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.props.setStateArticles(null);
+    }
+
     render() {
         return (
             <section className='civic-info'>
@@ -48,8 +55,7 @@ class CivicInfo extends Component {
         return (
             <CivicCard
             representative={ representative }
-            key={ representative.name }
-            handleNewsApiCall={this.props.handleNewsApiCall} />
+            key={ representative.name } />
         );
     }
 
