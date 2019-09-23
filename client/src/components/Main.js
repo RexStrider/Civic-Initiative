@@ -18,6 +18,8 @@ class Main extends Component {
         // google civic information data
         civicData: { },
         // news api query
+        // also being stored in sessionStorage.query
+        // this allows the query to persist even after refreshing the news page
         query: '',
         // news api page of results
         pageNum: 1,
@@ -32,7 +34,7 @@ class Main extends Component {
     // when the user starts a new query.
     // 
     // I am open to alternate solutions, but this solution does cause the intended behavior
-    // of this application (persisted query on refresh, and previous query is not shown when making a new query). 
+    // of this application (persisted query on refresh, and previous query is not shown when making a new query).
     setStateArticles = state => {
         this.state.articles=state;
     }
