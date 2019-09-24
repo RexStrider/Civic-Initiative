@@ -152,7 +152,7 @@ I'm using [Git](https://git-scm.com/) for versioning.
 
 ## Authors
 
- - Aaron Waterman Rose - initial work
+ - Aaron Waterman Rose - initial work - [RexStrider](https://github.com/RexStrider)
 
 ## License
 
