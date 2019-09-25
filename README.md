@@ -1,16 +1,18 @@
 # Civic-Initiative
 
-Look up your representatives and learn something about them while you're at it.
+Look up the US representatives and learn something about them while you're at it.
 
 ## Description
 
-The purpose of this web application is to provide a variety of resources that help people understand who their representatives are and what they do.
+The purpose of this web application is to provide a variety of resources to help people understand who their representatives are and what they do.
 
 If you do not know the names of the people who represent you in your local government, you can search for them using your address. You will be provided with their name, title, the branch of government they are associated with, any phone numbers or addresses listed from google civic info, as well some links to various resources available about them.
 
 Some resources may include; news articles that reference that representative, their Facebook page, their Youtube page, their official website, their local wiki page.
 
 There are a lot of great resources out there for learning about your representative, however the Civic Initiative remains a great place to start for learning more about the people that represent you.
+
+At the moment Google Civic Information only provides information on US representatives, which unfortunately limits the scope of this application to the US.
 
 ## Alpha testing is GO!
 
