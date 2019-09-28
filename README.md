@@ -1,6 +1,6 @@
 # Civic-Initiative
 
-Look up the US representatives and learn something about them while you're at it.
+Search for US representatives and display their public contact information and social media channels.
 
 ## Description
 
